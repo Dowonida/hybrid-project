@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>게시판 제목이 없어서 무제</h1>
+<hr>
+{% for dat in data %}
+<h1>
+
+    <a href="{%url 'articles:detail' dat.pk%}">{{dat.title}}</a>
+</h1>
+<h2>{{dat.content}}</h2>
+CRD함
+<hr>
+{% endfor %}
+
+{% endblock content %}

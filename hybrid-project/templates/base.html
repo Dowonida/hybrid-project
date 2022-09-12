@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% comment %} 만들고 싶은 것
+영화 정보를 불러오고, 저장
+영화평점은 직접 매기도록
+
+{% endcomment %}
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class='container'>
+        <h1 style='display:inline'>
+            <a href={%url 'articles:index'%}>관통된 관통 프로젝트</a>
+        </h1>
+        
+        <div style='display:inline'>
+
+            {% if not request.user.is_authenticated %}
+            
+            <a href="{%url 'accounts:login' %}">LogIn</a>
+            <a href="{%url 'accounts:signup' %}">SignUp</a>
+            <br>
+            {% else %}
+            <h3 style='display:inline'>Hello, {{user}}</h3>
+            <a href={%url 'articles:write'%}>글쓰기</a>
+            <a href="{%url 'accounts:update'%}">회원정보 수정</a>
+            <form action="{% url 'accounts:logout'%}" method='POST' style='display:inline'>
+                {% csrf_token %}
+                <input type="submit" value='Logout'>
+            </form>
+            
+        </div>
+        
+        <div style='height:300px;'>
+
+        </div> 
+
+
+     
+        {% endif %}
+
+    </div>
+    
+    {% block content %}
+    hihi
+    {% endblock content %}
+    <br>
+    
+
+
+</body>
+</html>
