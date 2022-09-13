@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>
+
+    {{keyword}} 검색결과
+</h2>
+{% if not data %} 
+<h1>검색결과 없음</h1>
+{% endif %}
+{% for dat in data %}
+{% comment %} title
+link
+image
+subtitle
+pubDate
+director
+actor
+userRating {% endcomment %}
+<h3>
+    제목: {{dat.title}}
+</h3>
+<p>
+
+    <img src="{{dat.image}}" alt="no image">
+</p>
+<br>
+<hr>
+{% endfor %}
+
+{% endblock content %}

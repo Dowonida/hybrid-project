@@ -35,7 +35,10 @@
             
         </div>
         
-        <div style='height:300px;'>
+        <form action={%url "articles:search"%} method="GET">
+            <input type="text" name='search'>
+            <input type="submit" value='검색'>
+        </form>
 
         </div> 
 
