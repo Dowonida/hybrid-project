@@ -108,6 +108,7 @@ Gen={ '드라마':1,  '판타지':2, '서부':3,
  '서사':23,  '블랙코미디':24,
  '실험':25,  '영화카툰':26,
  '영화음악':27, ' 영화패러디포스터':28}
+ 
 def search(name,genre='드라마'):
     #헤더 설정
     request_headers1={'X-Naver-Client-Id': '0F7cODxdTeBb6UNHxJp5','X-Naver-Client-Secret': 'uIhsCGsA0j'}
