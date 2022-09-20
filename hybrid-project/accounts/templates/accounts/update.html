@@ -19,4 +19,13 @@
 <form action="{%url 'accounts:delete'%}" method="POST">
     {% csrf_token %}
     <input type="submit" value="회원탈퇴">
+</form>
+
+
+    <h1>비밀번호 변경</h1>
+    <form action="{% url 'accounts:change_password'%}" method="POST">
+        {% csrf_token %}
+        {{pform.as_p}}
+        <input type="submit">
+    </form> 
 {% endblock content %}

@@ -62,14 +62,9 @@ def update(request):
             return redirect('articles:index')
     else:
         form = CustomUserChangeForm(instance=request.user)
-
-        passform = PasswordChangeForm(request.user)#임포트 필요
     context={
-        'form':form,
-        'passform':passform,
-
+        'form':form
     }
-
     return render(request, 'accounts/update.html', context)
 
 
@@ -80,13 +75,12 @@ def change_password(request):
             form.save()
             update_session_auth_hash(request, form.user)
             return redirect('articles:index')
-
-    form = CustomUserChangeForm(instance=request.user)
-    pform = PasswordChangeForm(request.user)#임포트 필요
+        
+    else:
+        form = PasswordChangeForm(request.user)#임포트 필요
     context={
         'form':form,
-        'pform':pform,
 
     }
 
-    return render(request, 'accounts/update.html',context)
+    return render(request, 'accounts/change_password.html',context)
