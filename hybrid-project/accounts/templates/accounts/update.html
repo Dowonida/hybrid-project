@@ -5,9 +5,17 @@
 <form action="{% url 'accounts:update'%}" method="POST">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit">
+    <input type="submit" value='정보수정'>
 
 </form>
+<hr>
+<form action="{% url 'accounts:change_password'%}" method="POST">
+    {% csrf_token %}
+    {{passform.as_p}}
+    <input type="submit" value='비밀번호변경'>
+
+</form>
+<hr>
 <form action="{%url 'accounts:delete'%}" method="POST">
     {% csrf_token %}
     <input type="submit" value="회원탈퇴">

@@ -62,8 +62,10 @@ def update(request):
             return redirect('articles:index')
     else:
         form = CustomUserChangeForm(instance=request.user)
+        passform = PasswordChangeForm(request.user)#임포트 필요
     context={
-        'form':form
+        'form':form,
+        'passform':passform,
     }
     return render(request, 'accounts/update.html', context)
 
