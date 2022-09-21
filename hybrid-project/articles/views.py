@@ -3,6 +3,7 @@ from . import models
 from .forms import Artform
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from shared.search import search
 import requests
 # Create your views here.
 
@@ -86,12 +87,16 @@ def update(request,pk):
 
 def searching(request):
 
-    a=search(request.GET['search'])   
+    a=search(request.GET['search'],request.GET['Genre'])
+    Genre= request.GET['Genre']
+    if Genre=='':
+        Genre='전체'
     for i in range(len(a)):
         a[i]['title']=a[i]['title'].replace('<b>','').replace('</b>','')
     context={
         'data':a,
         'keyword':request.GET['search'],
+        'genre':Genre,
 
     }
     return render(request, 'articles/search.html', context)
@@ -109,18 +114,18 @@ Gen={ '드라마':1,  '판타지':2, '서부':3,
  '실험':25,  '영화카툰':26,
  '영화음악':27, ' 영화패러디포스터':28}
  
-def search(name,genre='드라마'):
-    #헤더 설정
-    request_headers1={'X-Naver-Client-Id': '0F7cODxdTeBb6UNHxJp5','X-Naver-Client-Secret': 'uIhsCGsA0j'}
-    query=name #검색할 내용
-    genre=Gen[genre] #장르 번호
-    URL=f"https://openapi.naver.com/v1/search/movie.json?query={query}&display=10&start=1&genre={genre}" 
+# def search(name,genre='드라마'):
+#     #헤더 설정
+#     request_headers1={'X-Naver-Client-Id': '0F7cODxdTeBb6UNHxJp5','X-Naver-Client-Secret': 'uIhsCGsA0j'}
+#     query=name #검색할 내용
+#     genre=Gen[genre] #장르 번호
+#     URL=f"https://openapi.naver.com/v1/search/movie.json?query={query}&display=10&start=1&genre={genre}" 
     
-    response = requests.get(URL,headers=request_headers1).json()
-    RST=[]
-    for i in response['items']:
-        RST.append(i)
-    #RST=i
-    return RST
+#     response = requests.get(URL,headers=request_headers1).json()
+#     RST=[]
+#     for i in response['items']:
+#         RST.append(i)
+#     #RST=i
+#     return RST
 
 #print(search('스파이더'))
