@@ -7,14 +7,16 @@ class CustomUserCreationForm(UserCreationForm):
         model = get_user_model()
 
 class CustomUserChangeForm(UserChangeForm):
-    password = ReadOnlyPasswordHashField(
-        label=("Password"),
-        help_text=(
-            #'Raw passwords are not stored, so there is no way to see this '
-            #'user’s password, but you can change the password using '
-            '<a href={}>비밀번호 변경</a>.'
-        ),
-    )
+    password=None
+    # password = ReadOnlyPasswordHashField(
+    #     label=("Password"),
+    #     help_text=(
+    #         #'Raw passwords are not stored, so there is no way to see this '
+    #         #'user’s password, but you can change the password using '
+    #         #'<a href={}>비밀번호 변경</a>.'
+    #         '<a href={}></a>'
+    #     ),
+    # )
     
     class Meta(UserChangeForm.Meta):
         model = get_user_model()

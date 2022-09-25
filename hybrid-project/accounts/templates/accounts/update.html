@@ -22,10 +22,10 @@
 </form>
 
 
-    <h1>비밀번호 변경</h1>
-    <form action="{% url 'accounts:change_password'%}" method="POST">
+    {% comment %} <h1>비밀번호 변경</h1> {% endcomment %}
+    {% comment %} <form action="{% url 'accounts:change_password'%}" method="POST">
         {% csrf_token %}
         {{pform.as_p}}
         <input type="submit">
-    </form> 
+    </form>  {% endcomment %}
 {% endblock content %}

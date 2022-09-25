@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 {% comment %} 만들고 싶은 것
 영화 정보를 불러오고, 저장
@@ -32,7 +33,11 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{%url 'articles:index'%}">관통된 관통 프로젝트</a>
+          {% comment %} <a class="navbar-brand" href="{%url 'articles:index'%}">관통된 관통 프로젝트2</a> {% endcomment %}
+          <a href="{%url 'articles:index'%}" >
+            <img src="{% static 'image/관통.png' %}" alt=""  height="40">
+          </a>
+
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -42,7 +47,7 @@
                 <a href={%url 'articles:index'%}>관통된 관통 프로젝트</a>
               </li> {% endcomment %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="{%url 'movies:main'%}">영화</a>
               </li>
               {% if not request.user.is_authenticated %}
               <li class="nav-item">
@@ -76,7 +81,7 @@
                
             </ul>
 
-            <form class="d-flex" action={%url "articles:search"%} method="GET">
+            <form class="d-flex" action={%url "movies:search"%} method="GET">
                 <select name="Genre">
                   <option value="">전체</option>
                   <option value="드라마">드라마</option>

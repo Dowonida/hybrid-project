@@ -32,15 +32,15 @@ def search(name,genre=''):
     #헤더 설정
     request_headers1={'X-Naver-Client-Id': '0F7cODxdTeBb6UNHxJp5','X-Naver-Client-Secret': 'uIhsCGsA0j'}
     query=name #검색할 내용
-    
     URL=f"https://openapi.naver.com/v1/search/movie.json?query={query}&display=10&start=1" 
     if genre:
         genre=Gen[genre] #장르 번호
         URL+=f'&genre={genre}'
-    
     response = requests.get(URL,headers=request_headers1).json()
-    RST=[]
-    for i in response['items']:
-        RST.append(i)
-    #RST=i
-    return RST
+    #RST=[]
+    # for i in response['items']:
+    #     RST.append(i)
+    # #RST=i
+    return response['items']
+#a=search('스파이더')['items'][0]
+#print(a.keys())
