@@ -2,14 +2,25 @@
 
 {% block content %}
 
+
 {% comment %} {{info}} {% endcomment %}
 <br>
 <h1>
     {{info.title}}
+    <br>
+    {% comment %} 서브타이틀 {% endcomment %}
 </h1>
+<h3>
+
+    {{info.subtitle}}
+</h3>
 <img src="{{info.image}}" alt="no">
 <br>
 <a href="{{info.link}}">네이버에서 보기 </a>
 
 
+개봉일{{info.pubDate}}
+감독{{info.director}}
+배우{{info.actor}}
+평점{{info.userRating}}
 {% endblock content %}

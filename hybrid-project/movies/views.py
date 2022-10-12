@@ -18,12 +18,16 @@ def main(request):
     return render(request, 'movies/main.html')
 
 def searching(request):
-
-    a=search(request.GET['search'],request.GET['Genre'])
-    #print(a)
     Genre= request.GET['Genre']
     if Genre=='':
         Genre='전체'
+
+    # if not request.GET['search']:
+    #     return render(request, 'movies/search.html', {'genre':Genre})
+
+
+    a=search(request.GET['search'],request.GET['Genre'])
+    #print(a)
     for i in range(len(a)):
         a[i]['title']=a[i]['title'].replace('<b>','').replace('</b>','')
     context={

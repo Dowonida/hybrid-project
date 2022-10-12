@@ -5,13 +5,15 @@
 <h1>
     제목:{{data.title}}
 </h1>
+작성자: {{writer}}
 <hr>
 내용:
 <div class='content'>
 
     {{data.content}}
 </div>
-{% if user.username == data.writer %}
+
+{% if user.pk == data.writer %}
 
 <form action="{% url 'articles:delete' data.pk %}" method='POST' >
     {% csrf_token %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from accounts import models as Umodels
 from . import models
 from .forms import Artform
 from django.views.decorators.http import require_http_methods
@@ -24,8 +25,10 @@ def write(request):
         # A.title=a
         if form.is_valid():
 
-            article = form.save()
-            article.writer = request.user.username #form.save()의 리턴이 아티클 자체다.
+            article = form.save(commit=False) #데이터에 바로 반영하지 않는다.
+
+            article.writer = request.user.pk #form.save()의 리턴이 아티클 자체다.
+
             article.save()
             return redirect('articles:detail', article.pk)
         pass
@@ -38,8 +41,11 @@ def write(request):
 
 def detail(request,pk):
     #print('겟은',request.GET,request)
+    article=models.Art.objects.get(pk=pk)
+    writer=Umodels.User.objects.get(pk=article.writer)
     context={
-        'data':models.Art.objects.get(pk=pk)
+        'data':article,
+        'writer':writer,
     }
     return render(request, 'articles/detail.html',context)
 

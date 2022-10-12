@@ -6,4 +6,4 @@ class Art(models.Model):
 
     title=models.CharField(max_length=10)
     content=models.TextField()
-    writer=models.TextField()
+    writer=models.IntegerField()

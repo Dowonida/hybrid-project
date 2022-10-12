@@ -29,6 +29,8 @@ Gen={ '드라마':1,  '판타지':2, '서부':3,
 
 
 def search(name,genre=''):
+    if not name:#검색어가 없으면
+        return [] #아무것도 리턴하지 않아서 search.html에서 검색결과 없음이 나오도록 
     #헤더 설정
     request_headers1={'X-Naver-Client-Id': '0F7cODxdTeBb6UNHxJp5','X-Naver-Client-Secret': 'uIhsCGsA0j'}
     query=name #검색할 내용
@@ -37,6 +39,7 @@ def search(name,genre=''):
         genre=Gen[genre] #장르 번호
         URL+=f'&genre={genre}'
     response = requests.get(URL,headers=request_headers1).json()
+    
     #RST=[]
     # for i in response['items']:
     #     RST.append(i)
