@@ -12,6 +12,11 @@
 
     {{data.content}}
 </div>
+{% comment %} <form action="{% url 'articles:like' data.pk%}" method='POST'>
+    {% csrf_token %}
+    <input type="submit">
+
+</form> {% endcomment %}
 
 {% if user.pk == data.writer %}
 

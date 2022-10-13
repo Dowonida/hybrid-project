@@ -88,3 +88,10 @@ def update(request,pk):
 
 
 
+# def like(request,pk):
+#     이렇게하면 페이지 이동 없이 DB변화를 줄 수 있을거라 생각했지만 
+#     반드시 페이지를 리턴해줘야한다.
+#     리턴을 안해줘도 페이지는 이동하려하기때문에 None이란 페이지로 못간다고한다.
+#     article = models.Art.objects.get(pk=pk)
+#     article.count+=1
+#     article.save()

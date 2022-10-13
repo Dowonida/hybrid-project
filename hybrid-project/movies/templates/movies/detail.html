@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>
+    {{movie.title}}
+    
+</h1>
+{{movie.description}}
+
+
+<div>
+<hr>
+댓글 목록 
+    {% for com in comments %}
+    
+    <li>
+
+        {{com.content}} 
+    </li>
+    {% endfor %}
+<hr>
+</div>
+<form action="{%url 'movies:comments' movie.pk%}" method='POST'>
+    {% csrf_token %}
+
+    {{commentform.as_p}}
+    <input type="submit", value='댓글 달기'>
+</form>
+{% endblock content %}

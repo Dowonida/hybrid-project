@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from static.module.search import search
+from . import models
+from . import forms
 
 # Create your views here.
 
@@ -13,9 +15,13 @@ def info(request,title):
 
     return render(request, 'movies/info.html', context)
 
-def main(request):
+def index(request):
+    context = {
+        'movies' : models.Movie.objects.all(),
+        
+    }
 
-    return render(request, 'movies/main.html')
+    return render(request, 'movies/index.html', context)
 
 def searching(request):
     Genre= request.GET['Genre']
@@ -66,3 +72,45 @@ Gen={ '드라마':1,  '판타지':2, '서부':3,
 #     return RST
 
 #print(search('스파이더'))
+def create(request):
+
+    form= forms.Movieform(request.POST)
+    if request.method=='POST':
+        mov = form.save(commit=False)
+        mov.user_id=request.user
+        mov.save()
+        #print(request.user,type(request.user))
+
+        return redirect('movies:index')
+    
+
+
+    context={
+        'form':form,
+    }
+
+    return render(request,'movies/create.html', context)
+
+def detail(request,movie_pk):
+    mov = models.Movie.objects.get(pk=movie_pk)
+    comments = mov.comment_set.all()
+    commentform = forms.Commentform()
+    context={
+        'movie':mov,
+        'commentform':commentform,
+        'comments':comments,
+    }
+    return render(request,'movies/detail.html',context)
+
+def comments(request,movie_pk):
+    com = forms.Commentform(request.POST)
+    if com.is_valid():
+        comment = com.save(commit=False)
+        comment.movie_id=models.Movie.objects.get(pk=movie_pk)
+        comment.user_id=request.user
+        comment.save()
+
+        return redirect('movies:detail',movie_pk)
+
+
+    pass
