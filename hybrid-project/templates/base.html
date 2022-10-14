@@ -49,36 +49,40 @@
               <li class="nav-item">
                 <a class="nav-link" href="{%url 'movies:index'%}">영화</a>
               </li>
+              
+              {% block navbar %}
               {% if not request.user.is_authenticated %}
               <li class="nav-item">
                   <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href={%url 'articles:write'%}>글쓰기</a>
                   <li class="nav-item">
-                  <a class="nav-link" tabindex="-1"  href="{%url 'accounts:login' %}">LogIn</a>
-                  <li class="nav-item">
-                  <a class="nav-link" tabindex="-1"  href="{%url 'accounts:signup' %}">SignUp</a>
-                  {%else%}
-                  <a class="nav-link" tabindex="-1" aria-disabled="false" href={%url 'articles:write'%}>글쓰기</a>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                      Hello, {{user}}
+                      <a class="nav-link" tabindex="-1"  href="{%url 'accounts:login' %}">LogIn</a>
+                      <li class="nav-item">
+                          <a class="nav-link" tabindex="-1"  href="{%url 'accounts:signup' %}">SignUp</a>
+                          {%else%}
+                          <a class="nav-link" tabindex="-1" aria-disabled="false" href={%url 'articles:write'%}>글쓰기</a>
+                          
+                          <li class="nav-item dropdown">
+
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                              Hello, {{user}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            
+                        
                         <li><a class="dropdown-item" href="{%url 'accounts:update'%}">회원정보 수정</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         <li>            
                             <form action="{% url 'accounts:logout'%}" method='POST'>
-                            {% csrf_token %}
-                            <input type="submit" value='Logout'>
+                                {% csrf_token %}
+                                <input type="submit" value='Logout'>
                             </form>
                         </li>
                     </ul>
                   </li>
-                  {%endif%}
                 </li>
-               
+                {%endif%}
+                {% endblock navbar %}
             </ul>
 
             <form class="d-flex" action={%url "movies:search"%} method="GET">

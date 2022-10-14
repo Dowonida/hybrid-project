@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from static.module.search import search
 from . import models
 from . import forms
@@ -102,15 +103,58 @@ def detail(request,movie_pk):
     }
     return render(request,'movies/detail.html',context)
 
+def update(request,movie_pk):
+    movie= models.Movie.objects.get(pk=movie_pk)
+    user = request.user
+
+    if request.method=='POST':
+        if movie.user_id==user:
+            pass
+ 
+    if not user.is_authenticated:
+        return redirect('accounts:login')
+    elif movie.user_id!=user:
+        return redirect('movies:detail',movie_pk)
+    
+    else:
+
+        form=forms.Movieform(instance=movie)
+        context={
+            'form':form,
+            'movie':movie,
+        }
+
+        return render(request, 'movies/update.html',context)
+
+def delete(request,movie_pk):
+    movie = models.Movie.objects.get(pk=movie_pk)
+    print(request.user,movie.user_id,request.user==movie.user_id)
+    print(request.method)
+
+    if request.method=='POST' and request.user==movie.user_id:
+        movie.delete()
+        return redirect('movies:index')
+    
+    return redirect('movies:detail',movie_pk)
 def comments(request,movie_pk):
     com = forms.Commentform(request.POST)
     if com.is_valid():
-        comment = com.save(commit=False)
-        comment.movie_id=models.Movie.objects.get(pk=movie_pk)
-        comment.user_id=request.user
-        comment.save()
+        if request.user.is_authenticated:
+            comment = com.save(commit=False)
+            comment.movie_id=models.Movie.objects.get(pk=movie_pk)
+            comment.user_id=request.user
+            comment.save()
 
-        return redirect('movies:detail',movie_pk)
+            return redirect('movies:detail',movie_pk)
+        else:
+            return redirect('accounts:login')
 
 
     pass
+
+def comments_delete(request,movie_pk,comment_pk):
+    com = models.Comment.objects.get(pk=comment_pk)
+    if request.user==com.user_id and request.method=='POST':
+        com.delete()
+        return redirect('movies:detail',movie_pk)
+    return redirect('movies:detail',movie_pk)

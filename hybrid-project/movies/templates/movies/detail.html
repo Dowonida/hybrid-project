@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'movie_base.html' %}
 
 
 {% block content %}
@@ -9,7 +9,13 @@
 </h1>
 {{movie.description}}
 
-
+{% if movie.user_id == request.user %}
+<a href="{%url 'movies:update' movie.pk%}">수정하기</a>
+<form action="{%url 'movies:delete' movie.pk%}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" value='삭제하기'>
+</form>
+{% endif %}
 <div>
 <hr>
 댓글 목록 
@@ -17,7 +23,14 @@
     
     <li>
 
-        {{com.content}} 
+        {{com.user_id}} : {{com.content}} 
+
+        {% if movie.user_id == request.user %}
+            <form action="{%url 'movies:comments_delete' movie.pk com.pk%}" method='POST'>
+            {% csrf_token %}
+            <input type="submit" value='삭제하기'>
+        </form>
+        {% endif %}
     </li>
     {% endfor %}
 <hr>

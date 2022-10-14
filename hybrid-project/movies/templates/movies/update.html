@@ -1,0 +1,11 @@
+{% extends 'movie_base.html' %}
+
+
+{% block content %}
+
+<h1>UPDATE</h1>
+<form action="{%url 'movies:update' movie.pk%}" method='POST'>
+{{form.as_p}}
+<input type="submit" value='수정하기'>
+</form>
+{% endblock content %}
